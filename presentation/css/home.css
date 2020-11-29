@@ -1,0 +1,41 @@
+#home{
+    padding: 50px;
+}
+#home h2{
+    font-size: 40px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#create-issue-btn{
+    margin-left: 70%;
+    color: white;
+    background-color: green;
+    border-radius: 6px;
+    border: none;
+    padding: 10px;
+}
+
+#create-issue-btn, .filter-btn:hover{
+    cursor: pointer;
+}
+
+#home-header{
+    margin-bottom: 40px;
+}
+.filter-btn, #home-header label{
+    font-size: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+}
+.filter-btn{
+    margin-left: 30px;
+    border: none;
+    background-color: white;
+    padding: 20px;
+}
+
+.filter-btn:hover, .filter-btn:focus{
+    background-color: blue;
+    border-radius: 6px;
+    color: white;
+}

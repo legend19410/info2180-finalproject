@@ -15,7 +15,7 @@ CREATE TABLE `users` (
   `email` varchar(20) NOT NULL default '',
   `date_joined`datetime,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4080 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `issues`;
 CREATE TABLE `issues` (

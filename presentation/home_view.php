@@ -1,31 +1,14 @@
-<?php
-session_start();
-// check if user has logged in before granting access to script
-if(!isset($_SESSION['user_id'])){
-    header("Location: ../index.php");
-}
-?>
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BugMe Issue Tracker</title>
-    <script src="/js/home.js"></script>
-</head>
-<body>
-    <!--heading of the page-->
-    <header>
+<section id="home">
+
+    <div id="home-header">
+        <h2>Issues<button id="create-issue-btn">Create New Issue</button></h2>
+        <label>Filter by:</label>
+        <button id="all-btn" class="filter-btn">ALL</button>
+        <button id="open-btn" class="filter-btn">OPEN</button>
+        <button id="my-ticket-btn" class="filter-btn">MY TICKETS</button>
+    </div>
+    
+    <div class="home-body"></div>
         
-    </header>
-
-    <!--side navigation bar-->
-    <aside>
-
-    </aside>
-    <!--main section-->
-    <main>
-        <h1>home page</h1>
-    </main>
-</body>
-</html>
+</section>

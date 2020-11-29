@@ -1,36 +1,41 @@
-<?php
-session_start();
-if(isset($_SESSION['error_msg'])){
-    $message = $_SESSION['error_msg'];
-}else{
-    $message = null; 
-}
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BugMe Issue Tracker</title>
+    <script type='module' src="./presentation/js/index.js"></script>
+    <link rel="stylesheet" href="presentation/css/index.css">
+    <link rel="stylesheet" href="presentation/css/login.css">
+    <link rel="stylesheet" href="presentation/css/home.css">
+    <link rel="stylesheet" href="presentation/css/new_user.css">
+    <link rel="stylesheet" href="presentation/css/new_issue.css">
 </head>
 <body>
     <!--heading of the page-->
-    <header>
-
-    </header>
+    <?php require_once "presentation/header.php";?>
     <!--main section-->
+        
+    <!--side bar of the page-->
+    <?php require_once "presentation/side_bar.php";?>
+    
+    <!--main section of the page-->
     <main>
-        <form action='business_logic/login.php'>
-            <label for="">Email</label>
-            <input type="text" name="email" id="email" placeholder="email">
-            <label for="">Password</label>
-            <input type="password" name="password" id="password" placeholder="password">
-            <button id=submit_button>Submit</button>
-        </form>
-        <p id="error_msg">
-            <?php echo $message;?>
-        </p>
-        </div>
+        <section id="login">
+            <h3>SIGN IN</h3>
+            <div class="form-field">
+                
+                <input type="text" name="email" id="email" placeholder="email"> 
+            </div>
+            <div class="form-field">
+                
+                <input type="password" name="password" id="password" placeholder="password">
+            </div>
+            <button id=login_button>Login</button>
+            <p class="error_msg"></p>
+            </div>
+        </section>
     </main>
 </body>
 </html>
