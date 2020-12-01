@@ -14,7 +14,8 @@ export default function home(element){
                 if(request.status === 200){
                     if(respObj["loggedIn"]){
                         main.innerHTML = respObj['message'];
-                        loadTableWithAllIssues();
+                        loadTableWithAllIssues('all-btn');
+                        addEventListenersToTableFilters();
                     }
                     else{
                         main.innerHTML = respObj['message'];
@@ -32,11 +33,11 @@ export default function home(element){
     });
 }
 
-export function loadTableWithAllIssues(){
+export function loadTableWithAllIssues(value){
 
     const homeBody = document.querySelector("#home .home-body");
     const request = new XMLHttpRequest();
-    let key = "allIssues=query";
+    let key = "issues="+value;
     request.onreadystatechange = function(){
 
         console.log(request.responseText)
@@ -45,6 +46,7 @@ export function loadTableWithAllIssues(){
                 
                 homeBody.innerHTML = request.responseText;
                 addEventListenersToTableElements();
+                
             }
             if(request.status === 404){
                 // msgArea.innerHTML = "404 ERROR PAGE COULD NOT BE FOUND"; 
@@ -82,6 +84,16 @@ function addEventListenersToTableElements(){
             };
             request.open('GET', 'business_logic/controller.php?'+key, true);
             request.send();
+        });
+    });
+}
+
+function addEventListenersToTableFilters(){
+    let homeButtons = document.querySelectorAll('.filter-btn');
+
+    homeButtons.forEach(element => {
+        element.addEventListener('click',()=>{
+            loadTableWithAllIssues(element.id);
         });
     });
 }

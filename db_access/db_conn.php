@@ -90,6 +90,30 @@ class DatabaseConnection{
         }
     }
 
+    public function getOpenIssues(){
+        // echo "reached here";
+        $query = $this->handler->query("SELECT * FROM issues where status='OPEN'");
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        if($result){
+            return $result;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function getMyTicketIssues($user_id){
+        // echo "reached here";
+        $query = $this->handler->query("SELECT * FROM issues where status='IN PROGRESS'");
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        if($result){
+            return $result;
+        }
+        else{
+            return false;
+        }
+    }
+
     //return associative array with issue of given id
     public function getIssue($id){
         $query = $this->handler->query("SELECT * FROM issues WHERE id=$id");

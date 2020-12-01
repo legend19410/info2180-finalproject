@@ -9,31 +9,19 @@ class Issue{
     public function getAllIssues(){
         // return $this->db_conn->getAllIssues();
         $issues = $this->db_conn->getAllIssues();
-
-        echo '<table>';
-            echo '<thead>';
-            echo '<tr>';
-                echo "<th>Title</th>";
-                echo "<th>Type</th>";
-                echo "<th>Status</th>";
-                echo "<th>Assigned To</th>";
-                echo "<th>Created</th>";
-            echo '</tr>';
-            echo '</thead>';
-            echo '<tbody>';
-            foreach($issues as $row){
-            echo "<tr id='".$row['id']."'>";
-                echo "<td>#".$row['id']." ".$row['title']."</td>";
-                echo "<td>".$row['type']."</td>";
-                echo "<td>".$row['status']."</td>";
-                echo "<td>".$row['assigned_to']."</td>";
-                echo "<td>".$row['created']."</td>";
-            echo "</tr>";
-            }
-            echo '</tbody>';
-        echo '</table>';
-
+        $this->constructTable($issues);
     }
+    public function getOpenIssues(){
+        // return $this->db_conn->getAllIssues();
+        $issues = $this->db_conn->getOpenIssues();
+        $this->constructTable($issues);
+    }
+    public function getMyTicketIssues($user_id){
+        // return $this->db_conn->getAllIssues();
+        $issues = $this->db_conn->getMyTicketIssues($user_id);
+        $this->constructTable($issues);
+    }
+    
 
     public function getIssue($id){
         $issue = $this->db_conn->getIssue($id);
@@ -72,5 +60,30 @@ class Issue{
 
         //2. insert into db
         $this->db_conn->insertIssue($title, $description, $type, $priority, $assigned_to, $created_by);
+    }
+
+    private function constructTable($issues){
+        echo '<table>';
+            echo '<thead>';
+            echo '<tr>';
+                echo "<th>Title</th>";
+                echo "<th>Type</th>";
+                echo "<th>Status</th>";
+                echo "<th>Assigned To</th>";
+                echo "<th>Created</th>";
+            echo '</tr>';
+            echo '</thead>';
+            echo '<tbody>';
+            foreach($issues as $row){
+            echo "<tr id='".$row['id']."'>";
+                echo "<td>#".$row['id']." ".$row['title']."</td>";
+                echo "<td>".$row['type']."</td>";
+                echo "<td>".$row['status']."</td>";
+                echo "<td>".$row['assigned_to']."</td>";
+                echo "<td>".$row['created']."</td>";
+            echo "</tr>";
+            }
+            echo '</tbody>';
+        echo '</table>';
     }
 }

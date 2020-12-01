@@ -21,7 +21,7 @@ if(isset($_GET['email']) && isset($_GET['password'])){
     // if login successful create user session with user_id and send home page to client in json
     // else send error msg in json
     if($user){
-        $_SESSION["user_id"] = $user['id'];
+        $_SESSION["user_id"] = $user['email'];
         echo json_encode(
             array(
                 'loggedIn'=> true,
@@ -63,18 +63,15 @@ if(isset($_GET['home-view'])){
 }
 
 
-if(isset($_GET['allIssues']) && isset($_SESSION["user_id"])){
-    
+if(isset($_GET['issues']) && isset($_SESSION["user_id"])){
     $issue = new Issue($db_conn);
-    $issue->getAllIssues();
-
-    // contruct table and send to client
-    // if($allIssues){
-    //     var_dump($allIssues);
-    // }
-    // else{
-    //     echo "no issues";
-    // }
+    if($_GET['issues'] === 'all-btn'){
+        $issue->getAllIssues();
+    }elseif($_GET['issues'] === 'open-btn'){
+        $issue->getOpenIssues();
+    }elseif($_GET['issues'] === 'my-ticket-btn'){
+        $issue->getMyTicketIssues($_SESSION['user_id']);
+    }
 }
 
 if(isset($_GET['add_issue'])){
@@ -100,12 +97,21 @@ if(isset($_GET['add_issue'])){
 if(isset($_GET['new-user'])){
     
     if(isset($_SESSION['user_id'])){
-        echo json_encode(
-            array(
-                'loggedIn'=> true,
-                'message' => file_get_contents("../presentation/add_user_view.php")
-            )
-        ); 
+        if($_SESSION['user_id']==='admin@project2.com'){
+            echo json_encode(
+                array(
+                    'loggedIn'=> true,
+                    'message' => file_get_contents("../presentation/add_user_view.php")
+                )
+            ); 
+        }else{
+            echo json_encode(
+                array(
+                    'loggedIn'=> true,
+                    'message' => "<h1>You do not have permission to add new users</h1>"
+                )
+            ); 
+        } 
     }else{
         echo json_encode(
             array(

@@ -27,7 +27,7 @@ function sendRequest(requestObj, key){
                 if(respObj["loggedIn"]){
                     const main = document.querySelector("main");
                     main.innerHTML = respObj['message'];
-                    loadTableWithAllIssues();
+                    loadTableWithAllIssues('all-btn');
                 }
                 else{
                     msgArea.innerHTML = respObj['message'];
