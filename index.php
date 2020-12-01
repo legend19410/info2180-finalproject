@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="presentation/css/home.css">
     <link rel="stylesheet" href="presentation/css/new_user.css">
     <link rel="stylesheet" href="presentation/css/new_issue.css">
+    <link rel="stylesheet" href="presentation/css/issue.css">
 </head>
 <body>
     <!--heading of the page-->

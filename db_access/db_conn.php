@@ -91,8 +91,15 @@ class DatabaseConnection{
     }
 
     //return associative array with issue of given id
-    public function getIssues($id){
-       
+    public function getIssue($id){
+        $query = $this->handler->query("SELECT * FROM issues WHERE id=$id");
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        if($result){
+            return $result;
+        }
+        else{
+            return false;
+        }
     }
 
     // more methods 

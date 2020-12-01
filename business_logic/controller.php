@@ -124,7 +124,10 @@ if(isset($_GET['logout'])){
 }
 
 
-
+if(isset($_GET['issue']) && isset($_SESSION['user_id'])){
+    $issue = new Issue($db_conn);
+    $issue->getIssue($_GET['issue']);
+}
 
 
 if(isset($_POST['description'])){

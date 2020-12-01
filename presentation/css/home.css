@@ -39,3 +39,20 @@
     border-radius: 6px;
     color: white;
 }
+
+table{
+    border: none;
+    border-collapse: collapse;
+}
+
+th, td{
+    border: 1px solid black;
+    padding: 5px;
+    min-width: 200px;
+}
+
+tr > th, tbody tr:nth-child(even){
+    background-color: white;
+}
+
+
