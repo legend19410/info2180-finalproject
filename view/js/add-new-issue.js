@@ -31,7 +31,7 @@ export default function addIssue(element){
                 }
             }
         }
-        request.open('GET', 'business_logic/controller.php?'+key, true);
+        request.open('GET', 'controller/controller.php?'+key, true);
         //request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         request.send();
     });
@@ -72,7 +72,7 @@ function onSubmitNewIssue(){
                 }
             }
         };
-        request.open('POST', 'business_logic/controller.php', true);
+        request.open('POST', 'controller/controller.php', true);
         request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         request.send(key);
     });

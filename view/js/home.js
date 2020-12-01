@@ -29,7 +29,7 @@ export default function home(element){
                 }
             }
         }
-        request.open('GET', 'business_logic/controller.php?'+key, true);
+        request.open('GET', 'controller/controller.php?'+key, true);
         request.send();
     });
 }
@@ -54,7 +54,7 @@ export function loadTableWithAllIssues(value){
             }
         }
     };
-    request.open('GET', 'business_logic/controller.php?'+key, true);
+    request.open('GET', 'controller/controller.php?'+key, true);
     request.send();
 }
 
@@ -83,7 +83,7 @@ function addEventListenersToTableElements(){
                     }
                 }
             };
-            request.open('GET', 'business_logic/controller.php?'+key, true);
+            request.open('GET', 'controller/controller.php?'+key, true);
             request.send();
         });
     });

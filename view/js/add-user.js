@@ -32,7 +32,7 @@ export default function addUser(element){
                 }
             }
         }
-        request.open('GET', 'business_logic/controller.php?'+key, true);
+        request.open('GET', 'controller/controller.php?'+key, true);
         //request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         request.send();
     });

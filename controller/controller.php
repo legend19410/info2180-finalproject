@@ -1,7 +1,7 @@
 <?php
 // check if user has logged in before granting access to script
 session_start();
-require_once "../db_access/db_conn.php";
+require_once "../model/db_conn.php";
 require_once "issue.php";
 require_once "login.php";
 
@@ -26,7 +26,7 @@ if(isset($_GET['email']) && isset($_GET['password'])){
         echo json_encode(
             array(
                 'loggedIn'=> true,
-                'message' => file_get_contents("../presentation/home_view.php")
+                'message' => file_get_contents("../view/home_view.php")
             )
         ); 
     }
@@ -49,7 +49,7 @@ if(isset($_GET['home-view'])){
         echo json_encode(
             array(
                 'loggedIn'=> true,
-                'message' => file_get_contents("../presentation/home_view.php")
+                'message' => file_get_contents("../view/home_view.php")
             )
         ); 
     }
@@ -87,7 +87,7 @@ if(isset($_GET['add_issue'])){
         echo json_encode(
             array(
                 'loggedIn'=> true,
-                'message' => file_get_contents("../presentation/new_issue_view.php")
+                'message' => file_get_contents("../view/new_issue_view.php")
             )
         ); 
     }else{ // else return the index page
@@ -111,7 +111,7 @@ if(isset($_GET['new-user'])){
             echo json_encode(
                 array(
                     'loggedIn'=> true,
-                    'message' => file_get_contents("../presentation/add_user_view.php")
+                    'message' => file_get_contents("../view/add_user_view.php")
                 )
             ); 
         }else{

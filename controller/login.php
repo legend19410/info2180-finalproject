@@ -1,5 +1,5 @@
 <?php
-require_once "../db_access/db_conn.php";
+require_once "../model/db_conn.php";
 
 class Login{
     public $db_conn;

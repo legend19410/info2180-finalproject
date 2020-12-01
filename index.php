@@ -5,21 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BugMe Issue Tracker</title>
-    <script type='module' src="./presentation/js/index.js"></script>
-    <link rel="stylesheet" href="presentation/css/index.css">
-    <link rel="stylesheet" href="presentation/css/login.css">
-    <link rel="stylesheet" href="presentation/css/home.css">
-    <link rel="stylesheet" href="presentation/css/new_user.css">
-    <link rel="stylesheet" href="presentation/css/new_issue.css">
-    <link rel="stylesheet" href="presentation/css/issue.css">
+    <script type='module' src="./view/js/index.js"></script>
+    <link rel="stylesheet" href="view/css/index.css">
+    <link rel="stylesheet" href="view/css/login.css">
+    <link rel="stylesheet" href="view/css/home.css">
+    <link rel="stylesheet" href="view/css/new_user.css">
+    <link rel="stylesheet" href="view/css/new_issue.css">
+    <link rel="stylesheet" href="view/css/issue.css">
 </head>
 <body>
     <!--heading of the page-->
-    <?php require_once "presentation/header.php";?>
+    <?php require_once "view/header.php";?>
     <!--main section-->
         
     <!--side bar of the page-->
-    <?php require_once "presentation/side_bar.php";?>
+    <?php require_once "view/side_bar.php";?>
     
     <!--main section of the page-->
     <main>

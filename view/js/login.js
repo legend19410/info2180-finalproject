@@ -39,7 +39,7 @@ function sendRequest(requestObj, key){
         }
     }
 
-    requestObj.open('GET', 'business_logic/controller.php?'+key, true);
+    requestObj.open('GET', 'controller/controller.php?'+key, true);
     requestObj.send();
 
 }

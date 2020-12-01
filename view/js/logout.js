@@ -19,7 +19,7 @@ export default function logout(element){
                 }
             }
         };
-        request.open('GET', 'business_logic/controller.php?'+key, true);
+        request.open('GET', 'controller/controller.php?'+key, true);
         request.send();
     });
 }
