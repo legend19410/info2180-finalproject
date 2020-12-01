@@ -7,17 +7,14 @@ class Issue{
         $this->db_conn = $db_conn;
     }
     public function getAllIssues(){
-        // return $this->db_conn->getAllIssues();
         $issues = $this->db_conn->getAllIssues();
         $this->constructTable($issues);
     }
     public function getOpenIssues(){
-        // return $this->db_conn->getAllIssues();
         $issues = $this->db_conn->getOpenIssues();
         $this->constructTable($issues);
     }
     public function getMyTicketIssues($user_id){
-        // return $this->db_conn->getAllIssues();
         $issues = $this->db_conn->getMyTicketIssues($user_id);
         $this->constructTable($issues);
     }
@@ -25,12 +22,11 @@ class Issue{
 
     public function getIssue($id){
         $issue = $this->db_conn->getIssue($id);
-
         echo "<section id='issue'>
                     <section class='container'>
                         <div class='header'>
                             <h1>{$issue['title']}</h1>
-                            <h3>#{$issue['id']}</h3>
+                            <h3>Issue #{$issue['id']}</h3>
                         </div>
                         <div class='body'>
                             <p class='description'>{$issue['description']}</p>
@@ -40,7 +36,7 @@ class Issue{
                         <div class='sidebar'>
                             <div>
                                 <label>Assigned To:</label>
-                                <p>{$issue['assigned_to']}</p>
+                                <p>{$issue['firstname']} {$issue['lastname']}</p>
                                 <label>Type:</label>
                                 <p>{$issue['type']}</p>
                                 <label>Priority:</label>
@@ -56,10 +52,12 @@ class Issue{
     }
 
     public function createIssue($title, $description, $type, $priority, $assigned_to, $created_by){
-        //1. sanitize
+        //1. sanitize data
 
         //2. insert into db
         $this->db_conn->insertIssue($title, $description, $type, $priority, $assigned_to, $created_by);
+
+        //3. return msg to user
     }
 
     private function constructTable($issues){
@@ -79,7 +77,7 @@ class Issue{
                 echo "<td>#".$row['id']." ".$row['title']."</td>";
                 echo "<td>".$row['type']."</td>";
                 echo "<td>".$row['status']."</td>";
-                echo "<td>".$row['assigned_to']."</td>";
+                echo "<td>".$row['firstname']." ".$row['lastname']."</td>";
                 echo "<td>".$row['created']."</td>";
             echo "</tr>";
             }

@@ -18,7 +18,6 @@ class Login{
         //1. sanitize
 
         //2. insert into db
-        // var_dump($this->db_conn);
         $this->db_conn->insertIssue($title, $description, $type, $priority, $assigned_to, $created_by);
     }
 }

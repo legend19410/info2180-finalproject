@@ -80,7 +80,7 @@ class DatabaseConnection{
     //return associative array with all issues
     public function getAllIssues(){
         // echo "reached here";
-        $query = $this->handler->query("SELECT * FROM issues");
+        $query = $this->handler->query("SELECT * FROM issues JOIN users ON issues.assigned_to=users.id");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         if($result){
             return $result;
@@ -92,7 +92,8 @@ class DatabaseConnection{
 
     public function getOpenIssues(){
         // echo "reached here";
-        $query = $this->handler->query("SELECT * FROM issues where status='OPEN'");
+        $query = $this->handler->query("SELECT * FROM issues JOIN users ON issues.assigned_to=users.id
+                                        WHERE status='OPEN'");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         if($result){
             return $result;
@@ -103,8 +104,9 @@ class DatabaseConnection{
     }
 
     public function getMyTicketIssues($user_id){
-        // echo "reached here";
-        $query = $this->handler->query("SELECT * FROM issues where status='IN PROGRESS'");
+        // returns the all of current user's issues
+        $query = $this->handler->query("SELECT * FROM issues JOIN users ON issues.assigned_to=users.id 
+                                        where assigned_to=$user_id");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         if($result){
             return $result;
@@ -116,7 +118,8 @@ class DatabaseConnection{
 
     //return associative array with issue of given id
     public function getIssue($id){
-        $query = $this->handler->query("SELECT * FROM issues WHERE id=$id");
+        $query = $this->handler->query("SELECT * FROM issues JOIN users ON issues.assigned_to=users.id 
+                                        WHERE issues.id=$id");
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if($result){
             return $result;
@@ -125,10 +128,6 @@ class DatabaseConnection{
             return false;
         }
     }
-
-    // more methods 
-    //for all open issues
-    // etc 
 }
 
 

@@ -7,6 +7,7 @@ require_once "login.php";
 
 $db_conn = new DatabaseConnection();
 
+// handle login requests
 if(isset($_GET['email']) && isset($_GET['password'])){
     
     // extract user email and password
@@ -21,7 +22,7 @@ if(isset($_GET['email']) && isset($_GET['password'])){
     // if login successful create user session with user_id and send home page to client in json
     // else send error msg in json
     if($user){
-        $_SESSION["user_id"] = $user['email'];
+        $_SESSION["user_id"] = $user['id'];
         echo json_encode(
             array(
                 'loggedIn'=> true,
@@ -40,10 +41,10 @@ if(isset($_GET['email']) && isset($_GET['password'])){
     
 }
 
+// handle request for the home view page
 if(isset($_GET['home-view'])){
     
-    // if request is received for home page
-
+    // if user logged in send page to client else send index page
     if(isset($_SESSION["user_id"])){
         echo json_encode(
             array(
@@ -62,20 +63,26 @@ if(isset($_GET['home-view'])){
     }
 }
 
-
+// handle request for available issues
 if(isset($_GET['issues']) && isset($_SESSION["user_id"])){
+    
+    //create issue object to deal with issue requests
     $issue = new Issue($db_conn);
     if($_GET['issues'] === 'all-btn'){
-        $issue->getAllIssues();
-    }elseif($_GET['issues'] === 'open-btn'){
-        $issue->getOpenIssues();
+        $issue->getAllIssues();  //return all issues
+    }elseif($_GET['issues'] === 'open-btn'){ 
+        $issue->getOpenIssues(); //return Open issues
     }elseif($_GET['issues'] === 'my-ticket-btn'){
-        $issue->getMyTicketIssues($_SESSION['user_id']);
+        $issue->getMyTicketIssues($_SESSION['user_id']); //return current user issues
+    }elseif($_GET['issues'] === 'single-issue'){
+        $issue->getIssue($_GET['issue-id']); // handle request for a single issue
     }
 }
 
+// handle request for add issue page
 if(isset($_GET['add_issue'])){
     
+    // if user logged in return to client the add issue page
     if(isset($_SESSION['user_id'])){
         echo json_encode(
             array(
@@ -83,7 +90,7 @@ if(isset($_GET['add_issue'])){
                 'message' => file_get_contents("../presentation/new_issue_view.php")
             )
         ); 
-    }else{
+    }else{ // else return the index page
         echo json_encode(
             array(
                 'loggedIn'=> false,
@@ -94,10 +101,13 @@ if(isset($_GET['add_issue'])){
     
 }
 
+// handles request to add new users to the system
 if(isset($_GET['new-user'])){
     
+    // if user is currently logged in check if user if the admin. Only admin is allowed to
+    // add new users to the system
     if(isset($_SESSION['user_id'])){
-        if($_SESSION['user_id']==='admin@project2.com'){
+        if($_SESSION['user_id'] === '1'){
             echo json_encode(
                 array(
                     'loggedIn'=> true,
@@ -123,19 +133,15 @@ if(isset($_GET['new-user'])){
     
 }
 
+// handles logout requests
 if(isset($_GET['logout'])){
+    // logout, clear user session and return login page
     session_unset();
     session_destroy();
     echo file_get_contents("../index.php");
 }
 
-
-if(isset($_GET['issue']) && isset($_SESSION['user_id'])){
-    $issue = new Issue($db_conn);
-    $issue->getIssue($_GET['issue']);
-}
-
-
+//This should handle request for to enter a issue into the database
 if(isset($_POST['description'])){
     $created_by = 5;
     $issue = new Issue($db_conn);

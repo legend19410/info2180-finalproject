@@ -15,26 +15,26 @@
     padding: 10px;
 }
 
-#create-issue-btn, .filter-btn:hover{
+#create-issue-btn, .home-btn:hover{
     cursor: pointer;
 }
 
 #home-header{
     margin-bottom: 40px;
 }
-.filter-btn, #home-header label{
+.home-btn, #home-header label{
     font-size: 20px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: bold;
 }
-.filter-btn{
+.home-btn{
     margin-left: 30px;
     border: none;
     background-color: white;
     padding: 20px;
 }
 
-.filter-btn:hover, .filter-btn:focus{
+.home-btn:hover, .home-btn:focus{
     background-color: blue;
     border-radius: 6px;
     color: white;
@@ -43,16 +43,24 @@
 table{
     border: none;
     border-collapse: collapse;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 th, td{
     border: 1px solid black;
     padding: 5px;
     min-width: 200px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 tr > th, tbody tr:nth-child(even){
     background-color: white;
+}
+
+tbody tr:hover{
+    background-color: gray;
+    color: white;
+    cursor: pointer;
 }
 
 
