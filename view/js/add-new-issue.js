@@ -18,6 +18,7 @@ export default function addIssue(element){
                     const main = document.querySelector("main");
                     if(respObj["loggedIn"]){
                         main.innerHTML = respObj['message'];
+                        loadUsersInForm(respObj['users']);
                         onSubmitNewIssue();
                     }
                     else{
@@ -76,4 +77,20 @@ function onSubmitNewIssue(){
         request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         request.send(key);
     });
+}
+
+function loadUsersInForm(users){
+
+    const assignedToField = document.getElementById('assigned_to');
+    let userList = JSON.parse(users);
+    console.log(userList);
+    let option;
+    userList.forEach(element => {
+        option = document.createElement('option');
+        option.textContent = element.firstname+" "+element.lastname;
+        option.value = element.id;
+        assignedToField.appendChild(option);
+    });
+
+
 }

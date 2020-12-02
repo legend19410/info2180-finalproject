@@ -9,10 +9,6 @@
     
     <label for="assigned_to">Assigned To</label>
     <select id="assigned_to" name="assigned_to">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="fiat">Fiat</option>
-        <option value="audi">Audi</option>
     </select>
 
     <label for="type">Type</label>

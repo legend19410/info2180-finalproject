@@ -3,6 +3,7 @@
 session_start();
 require_once "../model/db_conn.php";
 require_once "issue.php";
+require_once "user.php";
 require_once "login.php";
 
 $db_conn = new DatabaseConnection();
@@ -84,10 +85,13 @@ if(isset($_GET['add_issue'])){
     
     // if user logged in return to client the add issue page
     if(isset($_SESSION['user_id'])){
+        $users = new User($db_conn);
+        $userList = $users->getAllUsers();
         echo json_encode(
             array(
                 'loggedIn'=> true,
-                'message' => file_get_contents("../view/new_issue_view.php")
+                'message' => file_get_contents("../view/new_issue_view.php"),
+                'users' => json_encode($userList)
             )
         ); 
     }else{ // else return the index page

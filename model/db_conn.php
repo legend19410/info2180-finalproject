@@ -80,7 +80,7 @@ class DatabaseConnection{
     //return associative array with all issues
     public function getAllIssues(){
         // echo "reached here";
-        $query = $this->handler->query("SELECT * FROM issues JOIN users ON issues.assigned_to=users.id");
+        $query = $this->handler->query("SELECT issues.id, firstname, lastname, type, status, description, title, created, assigned_to FROM issues JOIN users ON issues.assigned_to=users.id");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         if($result){
             return $result;
@@ -92,7 +92,7 @@ class DatabaseConnection{
 
     public function getOpenIssues(){
         // echo "reached here";
-        $query = $this->handler->query("SELECT * FROM issues JOIN users ON issues.assigned_to=users.id
+        $query = $this->handler->query("SELECT issues.id, firstname, lastname, type, status, description, title, created, assigned_to FROM issues JOIN users ON issues.assigned_to=users.id
                                         WHERE status='OPEN'");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         if($result){
@@ -105,7 +105,7 @@ class DatabaseConnection{
 
     public function getMyTicketIssues($user_id){
         // returns the all of current user's issues
-        $query = $this->handler->query("SELECT * FROM issues JOIN users ON issues.assigned_to=users.id 
+        $query = $this->handler->query("SELECT issues.id, firstname, lastname, type, status, description, title, created, assigned_to FROM issues JOIN users ON issues.assigned_to=users.id 
                                         where assigned_to=$user_id");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         if($result){
@@ -118,9 +118,21 @@ class DatabaseConnection{
 
     //return associative array with issue of given id
     public function getIssue($id){
-        $query = $this->handler->query("SELECT * FROM issues JOIN users ON issues.assigned_to=users.id 
+        $query = $this->handler->query("SELECT issues.id, firstname, lastname, type, status, description, title, created, assigned_to, created_by, updates, priority FROM issues JOIN users ON issues.assigned_to=users.id 
                                         WHERE issues.id=$id");
         $result = $query->fetch(PDO::FETCH_ASSOC);
+        if($result){
+            return $result;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function getAllUsers(){
+        
+        $query = $this->handler->query("SELECT id, firstname, lastname FROM users");
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
         if($result){
             return $result;
         }
