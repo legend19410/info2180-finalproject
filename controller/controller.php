@@ -147,7 +147,7 @@ if(isset($_GET['logout'])){
 
 //This should handle request for to enter a issue into the database
 if(isset($_POST['description'])){
-    $created_by = 5;
+    $created_by = 5;  // NEED TO CHANGE THIS
     $issue = new Issue($db_conn);
     $title = $_POST['title'];
     $description = $_POST['description'];
@@ -155,14 +155,23 @@ if(isset($_POST['description'])){
     $priority = $_POST['priority'];
     $assigned_to = $_POST['assigned_to'];
     $msg = $issue->createIssue($title, $description, $type, $priority, $assigned_to, $created_by);
-    echo json_encode(
-        array(
-            'status'=> true,
-            'message' => "milton"
-        )
+    $response = array(
+        'status'=> true,
+        'message' => "Added Successfully"
     );
+    echo json_encode($response);
 }
 
+if(isset($_GET['close-issue'])){
+    $id = htmlspecialchars($_GET['close-issue']);
+    $issue = new Issue($db_conn);
+    $msg = $issue->closeIssue($id);
+    echo 'Updated Successfully';
+}
 
-
-
+if(isset($_GET['progress-issue'])){
+    $id = htmlspecialchars($_GET['progress-issue']);
+    $issue = new Issue($db_conn);
+    $msg = $issue->progressIssue($id);
+    echo 'Updated Successfully';
+}

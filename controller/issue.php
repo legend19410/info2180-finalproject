@@ -42,7 +42,7 @@ class Issue{
                                 <label>Priority:</label>
                                 <p>{$issue['priority']}</p>
                                 <label>Status:</label>
-                                <p>{$issue['status']}</p>
+                                <p id='status'>{$issue['status']}</p>
                             </div>
                             <button class='mark-close-btn'>Mark as Closed</button>
                             <button class='mark-progress-btn'>Mark in Progress</button>
@@ -53,6 +53,13 @@ class Issue{
 
     public function createIssue($title, $description, $type, $priority, $assigned_to, $created_by){
         //1. sanitize data
+
+        $title = htmlspecialchars($title);
+        $description = htmlspecialchars($description);
+        $type = htmlspecialchars($type);
+        $priority = htmlspecialchars($priority);
+        $assigned_to = htmlspecialchars($assigned_to);
+        $created_by = htmlspecialchars($created_by);
 
         //2. insert into db
         $this->db_conn->insertIssue($title, $description, $type, $priority, $assigned_to, $created_by);
@@ -84,5 +91,14 @@ class Issue{
             echo '</tbody>';
         echo '</table>';
     }
+    
+    public function closeIssue($id){
+        $msg = $this->db_conn->closeIssue($id);
+        return $msg;
+    }
 
+    public function progressIssue($id){
+        $msg = $this->db_conn->progressIssue($id);
+        return $msg;
+    }
 }

@@ -4,9 +4,7 @@ import home from './home.js';
 import addUser from './add-user.js';
 import logout from './logout.js';
 
-
 document.addEventListener("DOMContentLoaded", function(){
-    
     const loginButton = document.querySelector("#login_button");
 
     const addNewIssue = document.getElementById('new-issue-link');

@@ -31,51 +31,39 @@ class DatabaseConnection{
 
     }
 
-    // public function insertIssue($title, $description, $type, $priority, $assigned_to, $created_by){
-    //     $stm = 'INSERT 
-    //                 INTO issues 
-    //                         (title, 
-    //                         `description`, 
-    //                         `type`, 
-    //                         priority,
-    //                         `status`, 
-    //                         assigned_to, 
-    //                         created_by,
-    //                         created, 
-    //                         `updates`)
-    //                 VALUES (
-    //                         :title, 
-    //                         :`description`,   
-    //                         :`type`, 
-    //                         :priority,
-    //                         'OPEN',
-    //                         :assigned_to,
-    //                         :created_by,
-    //                         NOW(),
-    //                         NOW()
-    //                         )';
-    //                         $n = 5;
-    //     $query = $this->handler->prepare($stm);
-    //     $query->bindParam(':title', $title );
-    //     $query->bindParam(':description', $description);
-    //     $query->bindParam(':type', $type);
-    //     $query->bindParam(':priority', $priority);
-    //     $query->bindParam(':assigned_to', $n);
-    //     $query->bindParam(':created_by', $n);
-    //     //  = $query->execute(array(
-    //     //     ':title' => $title, 
-    //     //     ':description' => $description,   
-    //     //     ':type' => $type, 
-    //     //     ':priority' => $priority,
-    //     //     ':status' => "OPEN",
-    //     //     ':assigned_to' => $assigned_to,
-    //     //     ':created_by' => $created_by,
-    //     //     ':created' => 'NOW()',
-    //     //     ':updates' => 'NOW()'
-    //     // )); 
-    //     $msg = $query->execute();
-    //     return msg;
-    // }
+    public function insertIssue($title, $description, $type, $priority, $assigned_to, $created_by){
+        $stm = "INSERT 
+                    INTO issues 
+                            (title, 
+                            description, 
+                            type, 
+                            priority,
+                            status, 
+                            assigned_to, 
+                            created_by,
+                            created, 
+                            updates)
+                    VALUES (
+                            :title, 
+                            :description,   
+                            :type, 
+                            :priority,
+                            'OPEN',
+                            :assigned_to,
+                            :created_by,
+                            NOW(),
+                            NOW()
+                            )";
+        $query = $this->handler->prepare($stm);
+        $query->bindParam(':title', $title );
+        $query->bindParam(':description', $description);
+        $query->bindParam(':type', $type);
+        $query->bindParam(':priority', $priority);
+        $query->bindParam(':assigned_to', $assigned_to);
+        $query->bindParam(':created_by', $created_by);
+        $msg = $query->execute();
+        return $msg;
+    }
 
     //return associative array with all issues
     public function getAllIssues(){
@@ -118,6 +106,7 @@ class DatabaseConnection{
 
     //return associative array with issue of given id
     public function getIssue($id){
+        $id =  htmlspecialchars($id);
         $query = $this->handler->query("SELECT issues.id, firstname, lastname, type, status, description, title, created, assigned_to, created_by, updates, priority FROM issues JOIN users ON issues.assigned_to=users.id 
                                         WHERE issues.id=$id");
         $result = $query->fetch(PDO::FETCH_ASSOC);
@@ -140,7 +129,22 @@ class DatabaseConnection{
             return false;
         }
     }
-}
 
+    public function closeIssue($id){
+        $query = $this->handler->query("UPDATE issues SET status = 'CLOSED' WHERE id=$id");
+        if($query->rowCount()==1){
+            return true;
+        }
+        return false;
+    }
+
+    public function progressIssue($id){
+        $query = $this->handler->query("UPDATE issues SET status = 'IN PROGRESS' WHERE id=$id");
+        if($query->rowCount()==1){
+            return true;
+        }
+        return false;
+    }
+}
 
 ?>

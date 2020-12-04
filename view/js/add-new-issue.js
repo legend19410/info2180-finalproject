@@ -4,13 +4,9 @@ export default function addIssue(element){
     element.addEventListener("click", function(){
         const request = new XMLHttpRequest();
         let key = "add_issue=yes";
-        console.log(key); 
 
         request.onreadystatechange = function(){
             //response from the server may be 404,403, 401
-            
-            //convert json to js object
-            console.log(this.responseText);
 
             if(request.readyState === 4){
                 let respObj = JSON.parse(this.responseText);
@@ -49,16 +45,10 @@ function onSubmitNewIssue(){
         let priority = document.getElementById('priority').value;
         const request = new XMLHttpRequest();
         let key = "title="+title+"&description="+description+"&assigned_to="+assignedTo+"&type="+type+"&priority="+priority;
-        console.log(key); 
 
         request.onreadystatechange = function(){
-            //response from the server may be 404,403, 401
-            
-            //convert json to js object
-            console.log(this.responseText);
-
             if(request.readyState === 4){
-                // let respObj = JSON.parse(this.responseText);
+                let respObj = JSON.parse(this.responseText);
                 if(request.status === 200){
                     if(respObj["status"]){
                         const msg = document.querySelector(".msg");
@@ -75,6 +65,7 @@ function onSubmitNewIssue(){
         };
         request.open('POST', 'controller/controller.php', true);
         request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        request.setRequestHeader('Accept', 'application/json');
         request.send(key);
     });
 }
@@ -83,7 +74,6 @@ function loadUsersInForm(users){
 
     const assignedToField = document.getElementById('assigned_to');
     let userList = JSON.parse(users);
-    console.log(userList);
     let option;
     userList.forEach(element => {
         option = document.createElement('option');
