@@ -116,7 +116,8 @@ function addEventListenersToMarkButtons(id){
 
             if(request.readyState === 4){
                 if(request.status === 200){
-                    main.innerHTML = request.responseText;      
+                    main.innerHTML = request.responseText;  
+                    addEventListenersToMarkButtons(id);    
                 }
                 if(request.status === 404){
                     // msgArea.innerHTML = "404 ERROR PAGE COULD NOT BE FOUND"; 
@@ -136,7 +137,8 @@ function addEventListenersToMarkButtons(id){
 
             if(request.readyState === 4){
                 if(request.status === 200){
-                    main.innerHTML = request.responseText;      
+                    main.innerHTML = request.responseText; 
+                    addEventListenersToMarkButtons(id);     
                 }
                 if(request.status === 404){
                     // msgArea.innerHTML = "404 ERROR PAGE COULD NOT BE FOUND"; 
