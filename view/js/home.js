@@ -11,6 +11,7 @@ export default function home(element){
         request.onreadystatechange = function(){
 
             if(request.readyState === 4){
+                console.log(request.responseText);
                 let respObj = JSON.parse(request.responseText);
                 if(request.status === 200){
                     if(respObj["loggedIn"]){

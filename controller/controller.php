@@ -61,7 +61,6 @@ if(isset($_GET['email']) && isset($_GET['password'])){
 
 // handle request for the home view page
 if(isset($_GET['home-view'])){
-    echo session_id();
     // if user logged in send page to client else send index page
     if(isset($_SESSION["user_id"])){
         $_SESSION["current_view"] = "../view/home_view.php";//stores current view
