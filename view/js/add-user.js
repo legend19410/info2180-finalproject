@@ -45,8 +45,11 @@ function onSubmitNewUser(){
 
     submitBtn.addEventListener('click', function(){
         const request = new XMLHttpRequest();
-        let body = "firstname="+firstname.value+"&lastname="+lastname.value+"&email="+email.value+"&password="+password.value;
         let response = document.getElementById('response');
+        let firstnameError = document.getElementById('firstname-error');
+        let lastnameError = document.getElementById('lastname-error');
+        let emailError = document.getElementById('email-error');
+        let passwordError = document.getElementById('password-error');
 
         request.onreadystatechange = function(){
             console.log(this.responseText);
@@ -57,9 +60,50 @@ function onSubmitNewUser(){
                 }
             }
         };
-        request.open('POST', 'controller/controller.php', true);
-        request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        request.setRequestHeader('Accept', 'application/json');
-        request.send(body);
+
+        let isValid = true;
+
+        if (firstname.value === "" || firstname.value === null){
+            isValid = false;
+            firstnameError.innerText = "Enter the user's firstname";
+        }
+        else{
+            firstnameError.innerText = "";
+        }
+
+        if (lastname.value === "" || lastname.value === null){
+            isValid = false;
+            lastnameError.innerText = "Enter the user's lastname";
+        }
+        else{
+            lastnameError.innerText = "";
+        }
+
+        if (email.value === "" || email.value === null){
+            isValid = false;
+            emailError.innerText = "Enter the user's email";
+        }
+        else{
+            emailError.innerText = "";
+        }
+
+        let regEx = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[0-9a-zA-Z]{7,}/;
+
+        if(!regEx.test(password.value)){
+
+            isValid = false;
+            passwordError.innerText = "Password must be at least 8 characters long and needs to have at least one lowercase letter, one uppercase letter and one digit";
+        }
+        else{
+            passwordError.innerText = "";
+        }
+
+        if (isValid){
+            let body = "firstname="+firstname.value+"&lastname="+lastname.value+"&email="+email.value+"&password="+password.value;
+            request.open('POST', 'controller/controller.php', true);
+            request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            request.setRequestHeader('Accept', 'application/json');
+            request.send(body);
+        }
     });
 }
