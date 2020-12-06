@@ -33,9 +33,9 @@ CREATE TABLE `issues` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `users`(firstname, lastname, `password`,email,date_joined) VALUES ('Malik','Edwards', md5('password123'), 'admin@project2.com', NOW());
-INSERT INTO `users`(firstname, lastname, `password`,email,date_joined) VALUES ('Milton','Francis',md5'12345'), 'francismilton19410@gmail.com', NOW());
-INSERT INTO `users`(firstname, lastname, `password`,email,date_joined) VALUES ('Javier','Bryan',md5'44444'), 'javier@gmail.com', NOW());
-INSERT INTO `users`(firstname, lastname, `password`,email,date_joined) VALUES ('Lisa','Darkins',md5'00000'), 'lisa@gmail.com', NOW());
+INSERT INTO `users`(firstname, lastname, `password`,email,date_joined) VALUES ('Milton','Francis',md5('12345'), 'francismilton19410@gmail.com', NOW());
+INSERT INTO `users`(firstname, lastname, `password`,email,date_joined) VALUES ('Javier','Bryan', md5('44444'), 'javier@gmail.com', NOW());
+INSERT INTO `users`(firstname, lastname, `password`,email,date_joined) VALUES ('Lisa','Darkins', md5('00000'), 'lisa@gmail.com', NOW());
 
 INSERT INTO `issues`(title, `description`, `type`,`priority`, `status`, 
                       `assigned_to`, `created_by`, `created`, `updates`) 
