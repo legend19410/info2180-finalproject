@@ -5,12 +5,24 @@ require_once "../model/db_conn.php";
 require_once "issue.php";
 require_once "user.php";
 require_once "login.php";
-
+$_SESSION["user"]="";
 $db_conn = new DatabaseConnection();
 
+//THIS FIRST IF STATEMENT IS WHAT I WAS TALKING ABOUT
 // handle login requests
+if (isset($_GET['index'])){
+
+    if(isset($_SESSION['user_id'])){
+        echo file_get_contents($_SESSION["current_view"]);
+    }
+    // not logged in
+    else{
+        echo file_get_contents("../view/login_view.php");
+    }
+}
+
+
 if(isset($_GET['email']) && isset($_GET['password'])){
-    
     // extract user email and password
     $email = $_GET['email'];
     $password = $_GET['password'];
@@ -23,9 +35,13 @@ if(isset($_GET['email']) && isset($_GET['password'])){
     // if login successful create user session with user_id and send home page to client in json
     // else send error msg in json
     if($user){
+        $_SESSION["user"] = 3;
         $_SESSION["user_id"] = $user['id'];
+        $_SESSION["current_view"] = "../view/home_view.php";//stores current view
+                                                            //should replace text in file_get_contents when working properly
         echo json_encode(
             array(
+                'sess' => session_id(),//should be removed
                 'loggedIn'=> true,
                 'message' => file_get_contents("../view/home_view.php")
             )
@@ -42,15 +58,20 @@ if(isset($_GET['email']) && isset($_GET['password'])){
     
 }
 
+
 // handle request for the home view page
 if(isset($_GET['home-view'])){
-    
+    echo session_id();
     // if user logged in send page to client else send index page
     if(isset($_SESSION["user_id"])){
+        $_SESSION["current_view"] = "../view/home_view.php";//stores current view
+                                                            //should replace text in file_get_contents when working properly
         echo json_encode(
             array(
+                'sess' => session_id(),//should be removed
                 'loggedIn'=> true,
                 'message' => file_get_contents("../view/home_view.php")
+  
             )
         ); 
     }
@@ -87,6 +108,7 @@ if(isset($_GET['add_issue'])){
     if(isset($_SESSION['user_id'])){
         $users = new User($db_conn);
         $userList = $users->getAllUsers();
+        $_SESSION["current_view"] = "../view/new_issue_view.php";
         echo json_encode(
             array(
                 'loggedIn'=> true,
@@ -112,6 +134,7 @@ if(isset($_GET['new-user'])){
     // add new users to the system
     if(isset($_SESSION['user_id'])){
         if($_SESSION['user_id'] === '1'){
+            $_SESSION["current_view"] = "../view/add_user_view.php";
             echo json_encode(
                 array(
                     'loggedIn'=> true,
@@ -142,7 +165,7 @@ if(isset($_GET['logout'])){
     // logout, clear user session and return login page
     session_unset();
     session_destroy();
-    echo file_get_contents("../index.php");
+    echo file_get_contents("../view/login_view.php");
 }
 
 //This should handle request for to enter a issue into the database

@@ -16,7 +16,7 @@ export default function login(element){
     });
 }
 
-function sendRequest(requestObj, key){
+export function sendRequest(requestObj, key=""){
         
     requestObj.onreadystatechange = () => {
     
