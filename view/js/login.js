@@ -1,4 +1,5 @@
 import {loadTableWithAllIssues} from './home.js';
+import {addEventListenersToTableFilters} from './home.js';
 
 export default function login(element){
 
@@ -28,6 +29,7 @@ function sendRequest(requestObj, key){
                 if(respObj["loggedIn"]){
                     const main = document.querySelector("main");
                     main.innerHTML = respObj['message'];
+                    addEventListenersToTableFilters();
                     loadTableWithAllIssues('all-btn');
                 }
                 else{

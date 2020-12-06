@@ -53,6 +53,7 @@ function onSubmitNewIssue(){
                     if(respObj["status"]){
                         const msg = document.querySelector(".msg");
                         msg.innerHTML = respObj['message'];
+                        msg.style.color = '#00AA00';//green
                     }
                     else{
                         msg.innerHTML = respObj['message'];

@@ -1,6 +1,7 @@
 import addIssue from './add-new-issue.js';
 import login from './login.js';
 
+
 export default function home(element){
     element.addEventListener("click",()=>{
         const request = new XMLHttpRequest();
@@ -88,17 +89,18 @@ function addEventListenersToTableElements(){
     });
 }
 
-function addEventListenersToTableFilters(){
+export function addEventListenersToTableFilters(){
     let homeButtons = document.querySelectorAll('.home-btn');
+    
     homeButtons.forEach(element => {
-        element.addEventListener('click',()=>{
-            if(element.id === 'create-issue-btn'){
-                addIssue(element);
-            }else{
-                loadTableWithAllIssues(element.id);
-            }
-            
-        });
+        if(element.id === 'create-issue-btn'){
+            addIssue(element);
+        }
+        else{
+            element.addEventListener('click',()=>{
+            loadTableWithAllIssues(element.id);    
+            });
+        }
     });
 }
 

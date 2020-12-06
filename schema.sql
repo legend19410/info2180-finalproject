@@ -32,7 +32,7 @@ CREATE TABLE `issues` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `users`(firstname, lastname, `password`,email,date_joined) VALUES ('Malik','Edwards','password123', 'admin@project2.com', NOW());
+INSERT INTO `users`(firstname, lastname, `password`,email,date_joined) VALUES ('Malik','Edwards', 'password123', 'admin@project2.com', NOW());
 INSERT INTO `users`(firstname, lastname, `password`,email,date_joined) VALUES ('Milton','Francis','12345', 'francismilton19410@gmail.com', NOW());
 INSERT INTO `users`(firstname, lastname, `password`,email,date_joined) VALUES ('Javier','Bryan','44444', 'javier@gmail.com', NOW());
 INSERT INTO `users`(firstname, lastname, `password`,email,date_joined) VALUES ('Lisa','Darkins','00000', 'lisa@gmail.com', NOW());
