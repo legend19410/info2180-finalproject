@@ -9,16 +9,11 @@ class Login{
     }
 
     public function log($email, $password){
+        $hashed_password = substr(md5($password), 0, 20);
         $email = filter_var(trim($email), FILTER_SANITIZE_EMAIL);
-        $user = $this->db_conn->login($email, $password);
+        $user = $this->db_conn->login($email, $hashed_password);
         return $user;
     }
 
-    public function createIssue($title, $description, $type, $priority, $assigned_to, $created_by){
-        //1. sanitize
-
-        //2. insert into db
-        $this->db_conn->insertIssue($title, $description, $type, $priority, $assigned_to, $created_by);
-    }
 }
 ?>

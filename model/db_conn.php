@@ -16,9 +16,8 @@ class DatabaseConnection{
     }
 
     //returns an assoc arr of a valid user or  if given user not valid false 
-    public function login($email, $password){
-        $hash = substr(md5($password), 0, 20);
-        $query = $this->handler->query("SELECT * FROM users WHERE email='$email' and password='$hash'");
+    public function login($email, $hashed_password){
+        $query = $this->handler->query("SELECT * FROM users WHERE email='$email' and password='$hashed_password'");
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if($result){
             return $result;
@@ -28,13 +27,8 @@ class DatabaseConnection{
         }
     }
     // insert a new user into the database
-    public function insertUser($first_name, $last_name, $email, $password){
-        $hash = substr(md5($password), 0, 20);
-
-        $first_name = htmlspecialchars($first_name);
-        $email = htmlspecialchars($email);
-        $last_name = htmlspecialchars($last_name);
-
+    public function insertUser($first_name, $last_name, $email, $hashed_password){
+      
         $stm = "INSERT 
             INTO users 
                     (
@@ -55,7 +49,7 @@ class DatabaseConnection{
             $query->bindParam(':fname', $first_name );
             $query->bindParam(':lname', $last_name);
             $query->bindParam(':email', $email);
-            $query->bindParam(':password', $hash);
+            $query->bindParam(':password', $hashed_password);
             $msg = $query->execute();
 
             return $msg;

@@ -115,6 +115,7 @@ if(isset($_GET['new-user'])){
             echo json_encode(
                 array(
                     'loggedIn'=> true,
+                    'addUserPermisson' => true,
                     'message' => file_get_contents("../view/add_user_view.php")
                 )
             ); 
@@ -122,6 +123,7 @@ if(isset($_GET['new-user'])){
             echo json_encode(
                 array(
                     'loggedIn'=> true,
+                    'addUserPermisson' => false,
                     'message' => "<h1>You do not have permission to add new users</h1>"
                 )
             ); 
@@ -130,6 +132,7 @@ if(isset($_GET['new-user'])){
         echo json_encode(
             array(
                 'loggedIn'=> false,
+                'addUserPermisson' => false,
                 'message' => file_get_contents("../index.php")
             )
         ); 

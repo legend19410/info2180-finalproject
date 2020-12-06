@@ -15,7 +15,9 @@ export default function addUser(element){
                     const main = document.querySelector("main");
                     if(respObj["loggedIn"]){
                         main.innerHTML = respObj['message'];
-                        onSubmitNewUser();
+                        if(respObj['addUserPermission']){
+                            onSubmitNewUser();
+                        } 
                     }
                     else{
                         main.innerHTML = respObj['message'];
@@ -47,6 +49,7 @@ function onSubmitNewUser(){
         let response = document.getElementById('response');
 
         request.onreadystatechange = function(){
+            console.log(this.responseText);
             if(request.readyState === 4){
                 let respObj = JSON.parse(this.responseText);
                 if(request.status === 200){
