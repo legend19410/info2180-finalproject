@@ -10,4 +10,8 @@ class User{
     public function getAllUsers(){
         return $this->db_conn->getAllUsers();
     }
+
+    public function addUser($firstname, $lastname, $email, $password){
+        return $this->db_conn->insertUser($firstname, $lastname, $email, $password);
+    }
 }

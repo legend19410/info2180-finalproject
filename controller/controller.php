@@ -145,6 +145,36 @@ if(isset($_GET['logout'])){
     echo file_get_contents("../index.php");
 }
 
+
+if(isset($_POST['password'])){
+    if($_SESSION['user_id'] === '1'){
+
+        $user = new User($db_conn);
+
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $msg = $user->addUser($firstname, $lastname, $email, $password);
+
+        $response = array(
+            'status'=> true,
+            'message' => "Added User Successfully"
+        );
+        echo json_encode($response);
+    }
+    else{
+        echo json_encode(
+            array(
+                'status'=> false,
+                'message' => 'You dont have permission for this'
+            )
+        );
+    }
+}
+
+
 //This should handle request for to enter a issue into the database
 if(isset($_POST['description'])){
     $created_by = $_SESSION["user_id"]; 

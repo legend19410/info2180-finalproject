@@ -5,13 +5,9 @@ export default function addUser(element){
 
         const request = new XMLHttpRequest();
         let key = "new-user=query";
-        console.log(key); 
-
         request.onreadystatechange = function(){
             //response from the server may be 404,403, 401
-            
-            //convert json to js object
-            console.log(this.responseText);
+    
 
             if(request.readyState === 4){
                 let respObj = JSON.parse(this.responseText);
@@ -39,5 +35,28 @@ export default function addUser(element){
 }
 
 function onSubmitNewUser(){
-    
+    let submitBtn = document.getElementById('submit-new-user-btn');
+    let firstname = document.getElementById('new-firstname');
+    let lastname = document.getElementById('new-lastname');
+    let password = document.getElementById('new-password');
+    let email = document.getElementById('new-email');
+
+    submitBtn.addEventListener('click', function(){
+        const request = new XMLHttpRequest();
+        let body = "firstname="+firstname.value+"&lastname="+lastname.value+"&email="+email.value+"&password="+password.value;
+        let response = document.getElementById('response');
+
+        request.onreadystatechange = function(){
+            if(request.readyState === 4){
+                let respObj = JSON.parse(this.responseText);
+                if(request.status === 200){
+                   response.innerText = respObj['message'];
+                }
+            }
+        };
+        request.open('POST', 'controller/controller.php', true);
+        request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        request.setRequestHeader('Accept', 'application/json');
+        request.send(body);
+    });
 }

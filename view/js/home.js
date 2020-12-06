@@ -42,7 +42,6 @@ export function loadTableWithAllIssues(value){
     let key = "issues="+value;
     request.onreadystatechange = function(){
 
-        console.log(request.responseText)
         if(request.readyState === 4){
             if(request.status === 200){
                 

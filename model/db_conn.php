@@ -17,7 +17,8 @@ class DatabaseConnection{
 
     //returns an assoc arr of a valid user or  if given user not valid false 
     public function login($email, $password){
-        $query = $this->handler->query("SELECT * FROM users where email='$email' and password='$password'");
+        $hash = substr(md5($password), 0, 20);
+        $query = $this->handler->query("SELECT * FROM users WHERE email='$email' and password='$hash'");
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if($result){
             return $result;
@@ -27,8 +28,37 @@ class DatabaseConnection{
         }
     }
     // insert a new user into the database
-    public function insertUser($first_name, $last_name, $password, $email){
+    public function insertUser($first_name, $last_name, $email, $password){
+        $hash = substr(md5($password), 0, 20);
 
+        $first_name = htmlspecialchars($first_name);
+        $email = htmlspecialchars($email);
+        $last_name = htmlspecialchars($last_name);
+
+        $stm = "INSERT 
+            INTO users 
+                    (
+                        firstname, 
+                        lastname,
+                        email,
+                        password,
+                        date_joined
+                    )
+            VALUES (
+                    :fname, 
+                    :lname,   
+                    :email, 
+                    :password,
+                    NOW()
+                    )";
+            $query = $this->handler->prepare($stm);
+            $query->bindParam(':fname', $first_name );
+            $query->bindParam(':lname', $last_name);
+            $query->bindParam(':email', $email);
+            $query->bindParam(':password', $hash);
+            $msg = $query->execute();
+
+            return $msg;
     }
 
     public function insertIssue($title, $description, $type, $priority, $assigned_to, $created_by){
