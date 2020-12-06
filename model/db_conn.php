@@ -74,7 +74,7 @@ class DatabaseConnection{
             return $result;
         }
         else{
-            return false;
+            return array();
         }
     }
 
@@ -87,7 +87,7 @@ class DatabaseConnection{
             return $result;
         }
         else{
-            return false;
+            return array();
         }
     }
 
@@ -100,7 +100,7 @@ class DatabaseConnection{
             return $result;
         }
         else{
-            return false;
+            return array();
         }
     }
 
@@ -114,7 +114,7 @@ class DatabaseConnection{
             return $result;
         }
         else{
-            return false;
+            return array();            ;
         }
     }
 
@@ -126,7 +126,7 @@ class DatabaseConnection{
             return $result;
         }
         else{
-            return false;
+            return array();
         }
     }
 

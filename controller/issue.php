@@ -68,28 +68,33 @@ class Issue{
     }
 
     private function constructTable($issues){
-        echo '<table>';
-            echo '<thead>';
-            echo '<tr>';
-                echo "<th>Title</th>";
-                echo "<th>Type</th>";
-                echo "<th>Status</th>";
-                echo "<th>Assigned To</th>";
-                echo "<th>Created</th>";
-            echo '</tr>';
-            echo '</thead>';
-            echo '<tbody>';
-            foreach($issues as $row){
-            echo "<tr id='".$row['id']."'>";
-                echo "<td>#".$row['id']." ".$row['title']."</td>";
-                echo "<td>".$row['type']."</td>";
-                echo "<td>".$row['status']."</td>";
-                echo "<td>".$row['firstname']." ".$row['lastname']."</td>";
-                echo "<td>".$row['created']."</td>";
-            echo "</tr>";
-            }
-            echo '</tbody>';
-        echo '</table>';
+        if (count($issues)>0){
+            echo '<table>';
+                echo '<thead>';
+                echo '<tr>';
+                    echo "<th>Title</th>";
+                    echo "<th>Type</th>";
+                    echo "<th>Status</th>";
+                    echo "<th>Assigned To</th>";
+                    echo "<th>Created</th>";
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
+                foreach($issues as $row){
+                echo "<tr id='".$row['id']."'>";
+                    echo "<td>#".$row['id']." ".$row['title']."</td>";
+                    echo "<td>".$row['type']."</td>";
+                    echo "<td>".$row['status']."</td>";
+                    echo "<td>".$row['firstname']." ".$row['lastname']."</td>";
+                    echo "<td>".$row['created']."</td>";
+                echo "</tr>";
+                }
+                echo '</tbody>';
+            echo '</table>';
+        }
+        else{
+            echo "<div> No Issues </div>";
+        }
     }
     
     public function closeIssue($id){
@@ -98,7 +103,7 @@ class Issue{
     }
 
     public function progressIssue($id){
-        $msg = $this->db_conn->progressIssue($id);
+        $this->db_conn->progressIssue($id);
         return $this->getIssue($id);
     }
 }
