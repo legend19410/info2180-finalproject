@@ -24,7 +24,7 @@
     
     <!--main section of the page-->
     <main>
-        <?php require_once "view/login_view.php";?>
+       <!--?php require_once "view/login_view.php";?>-->
     </main>
 </body>
 </html>

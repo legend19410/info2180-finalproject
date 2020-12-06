@@ -9,7 +9,7 @@ export default function home(element){
         const main = document.querySelector('main');
         
         request.onreadystatechange = function(){
-
+            console.log(request.responseText)
             if(request.readyState === 4){
                 console.log(request.responseText);
                 let respObj = JSON.parse(request.responseText);
@@ -17,11 +17,10 @@ export default function home(element){
                     if(respObj["loggedIn"]){
                         main.innerHTML = respObj['message'];
                         loadTableWithAllIssues('all-btn');
-                    
                         addEventListenersToTableFilters();
                     }
                     else{
-                        main.innerHTML = respObj['message'];
+                        document.innerHTML = respObj['message'];
                         const loginButton = document.querySelector("#login_button");
                         login(loginButton);
                     }
