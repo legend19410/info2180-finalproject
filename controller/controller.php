@@ -126,8 +126,8 @@ if(isset($_GET['add_issue'])){
         echo json_encode(
             array(
                 'view'=> $_SESSION["view"],
-                'message' => file_get_contents($_SESSION["current_view"]),
-                'users' => json_encode($userList)
+                'users' => json_encode($userList),
+                'message' => file_get_contents($_SESSION["current_view"])
             )
         ); 
     }else{ // else return the index page

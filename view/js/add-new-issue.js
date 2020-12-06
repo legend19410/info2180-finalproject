@@ -9,6 +9,7 @@ export default function addIssue(element){
             //response from the server may be 404,403, 401
 
             if(request.readyState === 4){
+                // console.log(this.responseText);
                 let respObj = JSON.parse(this.responseText);
                 if(request.status === 200){
                     const main = document.querySelector("main");
@@ -19,8 +20,8 @@ export default function addIssue(element){
                     }
                     else{
                         main.innerHTML = respObj['message'];
-                        const loginButton = document.querySelector("#login_button");
-                        login(loginButton);
+                        // const loginButton = document.querySelector("#login_button");
+                        // login(loginButton);
                     }
                 }
                 if(request.status === 404){
