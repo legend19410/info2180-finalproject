@@ -175,6 +175,17 @@ class DatabaseConnection{
         }
         return false;
     }
+
+    public function getNameOfUser($id){
+        $query = $this->handler->query("SELECT firstname, lastname FROM users WHERE id = $id");
+        $name = $query->fetch(PDO::FETCH_ASSOC);
+        if($name){
+            return $name;
+        }
+        else{
+            return array();
+        }
+    }
 }
 
 ?>

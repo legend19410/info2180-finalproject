@@ -5,10 +5,10 @@ import addUser from './add-user.js';
 import logout from './logout.js';
 
 
+
 document.addEventListener("DOMContentLoaded", function(){
     
     const loginButton = document.querySelector("#login_button");
-
     const addNewIssue = document.getElementById('new-issue-link');
     const homeLink = document.getElementById('home-link');
     const addUserLink = document.getElementById('add-user-link');
@@ -19,6 +19,5 @@ document.addEventListener("DOMContentLoaded", function(){
     home(homeLink);
     addUser(addUserLink);
     logout(logoutLink);
-
-
+   
 });

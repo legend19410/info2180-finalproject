@@ -30,7 +30,7 @@ class Issue{
                         </div>
                         <div class='body'>
                             <p class='description'>{$issue['description']}</p>
-                            <p class='creation-date'>> Issue created on {$issue['created']} by {$issue['created_by']}</p>
+                            <p class='creation-date'>> Issue created on {$issue['created']} by {$this->getNameOfUser($issue['created_by'])}</p>
                             <p class='updated-date'>> Last updated on {$issue['updates']}</p>
                         </div>
                         <div class='sidebar'>
@@ -105,5 +105,11 @@ class Issue{
     public function progressIssue($id){
         $this->db_conn->progressIssue($id);
         return $this->getIssue($id);
+    }
+
+    public function getNameOfUser($id){
+        $name = $this->db_conn->getNameOfUser($id);
+        $name = $name['firstname']." ".$name['lastname'];
+        return $name;
     }
 }
