@@ -93,12 +93,12 @@ class Issue{
     }
     
     public function closeIssue($id){
-        $msg = $this->db_conn->closeIssue($id);
-        return $msg;
+        $this->db_conn->closeIssue($id);
+        return $this->getIssue($id);
     }
 
     public function progressIssue($id){
         $msg = $this->db_conn->progressIssue($id);
-        return $msg;
+        return $this->getIssue($id);
     }
 }

@@ -147,7 +147,7 @@ if(isset($_GET['logout'])){
 
 //This should handle request for to enter a issue into the database
 if(isset($_POST['description'])){
-    $created_by = 5;  // NEED TO CHANGE THIS
+    $created_by = $_SESSION["user_id"]; 
     $issue = new Issue($db_conn);
     $title = $_POST['title'];
     $description = $_POST['description'];
@@ -166,12 +166,12 @@ if(isset($_GET['close-issue'])){
     $id = htmlspecialchars($_GET['close-issue']);
     $issue = new Issue($db_conn);
     $msg = $issue->closeIssue($id);
-    echo 'Updated Successfully';
+    echo $msg;
 }
 
 if(isset($_GET['progress-issue'])){
     $id = htmlspecialchars($_GET['progress-issue']);
     $issue = new Issue($db_conn);
     $msg = $issue->progressIssue($id);
-    echo 'Updated Successfully';
+    echo $msg;
 }

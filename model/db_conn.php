@@ -131,7 +131,7 @@ class DatabaseConnection{
     }
 
     public function closeIssue($id){
-        $query = $this->handler->query("UPDATE issues SET status = 'CLOSED' WHERE id=$id");
+        $query = $this->handler->query("UPDATE issues SET status = 'CLOSED', updates = NOW() WHERE id=$id");
         if($query->rowCount()==1){
             return true;
         }
@@ -139,7 +139,7 @@ class DatabaseConnection{
     }
 
     public function progressIssue($id){
-        $query = $this->handler->query("UPDATE issues SET status = 'IN PROGRESS' WHERE id=$id");
+        $query = $this->handler->query("UPDATE issues SET status = 'IN PROGRESS', updates = NOW() WHERE id=$id");
         if($query->rowCount()==1){
             return true;
         }
