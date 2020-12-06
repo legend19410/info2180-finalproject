@@ -13,9 +13,9 @@
 
     <label for="type">Type</label>
     <select id="type" name="type">
-        <option value="bug">Bug</option>
-        <option value="proposal">Proposal</option>
-        <option value="task">Task</option>
+        <option value="Bug">Bug</option>
+        <option value="Proposal">Proposal</option>
+        <option value="Task">Task</option>
     </select>
     
     <label for="priority">Priority</label>
