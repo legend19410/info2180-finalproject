@@ -10,14 +10,14 @@ export default function addUser(element){
     
 
             if(request.readyState === 4){
+                console.log(this.responseText);
                 let respObj = JSON.parse(this.responseText);
                 if(request.status === 200){
                     const main = document.querySelector("main");
                     if(respObj["loggedIn"]){
                         main.innerHTML = respObj['message'];
-                        if(respObj['addUserPermission']){
-                            onSubmitNewUser();
-                        } 
+                        onSubmitNewUser();
+                        
                     }
                     else{
                         main.innerHTML = respObj['message'];
