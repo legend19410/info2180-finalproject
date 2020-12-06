@@ -13,11 +13,24 @@ $db_conn = new DatabaseConnection();
 if (isset($_GET['index'])){
 
     if(isset($_SESSION['user_id'])){
-        echo file_get_contents($_SESSION["current_view"]);
+        echo json_encode(
+            array(
+                'view' => $_SESSION["view"],
+                'loggedIn'=> true,
+                'message' => file_get_contents($_SESSION["current_view"])
+            )
+        ); 
     }
     // not logged in
     else{
-        echo file_get_contents("../view/login_view.php");
+        $_SESSION["view"] = "login";//stores current view
+        echo json_encode(
+            array(
+                'view' => $_SESSION["view"],
+                'loggedIn'=> false,
+                'message' => file_get_contents("../view/login_view.php")
+            )
+        ); 
     }
 }
 
@@ -37,13 +50,13 @@ if(isset($_GET['email']) && isset($_GET['password'])){
     if($user){
         $_SESSION["user"] = 3;
         $_SESSION["user_id"] = $user['id'];
+        $_SESSION["view"] = "home";//stores current view
         $_SESSION["current_view"] = "../view/home_view.php";//stores current view
                                                             //should replace text in file_get_contents when working properly
         echo json_encode(
             array(
-                'sess' => session_id(),//should be removed
                 'loggedIn'=> true,
-                'message' => file_get_contents("../view/home_view.php")
+                'message' => file_get_contents($_SESSION["current_view"])
             )
         ); 
     }
@@ -61,16 +74,16 @@ if(isset($_GET['email']) && isset($_GET['password'])){
 
 // handle request for the home view page
 if(isset($_GET['home-view'])){
-    echo session_id();
     // if user logged in send page to client else send index page
     if(isset($_SESSION["user_id"])){
+        $_SESSION["view"] = "home";//stores current view
         $_SESSION["current_view"] = "../view/home_view.php";//stores current view
                                                             //should replace text in file_get_contents when working properly
         echo json_encode(
             array(
                 'sess' => session_id(),//should be removed
                 'loggedIn'=> true,
-                'message' => file_get_contents("../view/home_view.php")
+                'message' => file_get_contents($_SESSION["current_view"])
   
             )
         ); 
@@ -108,11 +121,12 @@ if(isset($_GET['add_issue'])){
     if(isset($_SESSION['user_id'])){
         $users = new User($db_conn);
         $userList = $users->getAllUsers();
+        $_SESSION["view"] = "addIssue";//stores current view
         $_SESSION["current_view"] = "../view/new_issue_view.php";
         echo json_encode(
             array(
-                'loggedIn'=> true,
-                'message' => file_get_contents("../view/new_issue_view.php"),
+                'view'=> $_SESSION["view"],
+                'message' => file_get_contents($_SESSION["current_view"]),
                 'users' => json_encode($userList)
             )
         ); 
@@ -134,11 +148,12 @@ if(isset($_GET['new-user'])){
     // add new users to the system
     if(isset($_SESSION['user_id'])){
         if($_SESSION['user_id'] === '1'){
+            $_SESSION["view"] = "addUser";//stores current view
             $_SESSION["current_view"] = "../view/add_user_view.php";
             echo json_encode(
                 array(
                     'loggedIn'=> true,
-                    'message' => file_get_contents("../view/add_user_view.php")
+                    'message' => file_get_contents($_SESSION["current_view"])
                 )
             ); 
         }else{
