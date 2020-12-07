@@ -30,7 +30,7 @@ class Issue{
                         </div>
                         <div class='body'>
                             <p class='description'>{$issue['description']}</p>
-                            <p class='creation-date'>> Issue created on {$issue['created']} by {$issue['created_by']}</p>
+                            <p class='creation-date'>> Issue created on {$issue['created']} by {$this->getNameOfUser($issue['created_by'])}</p>
                             <p class='updated-date'>> Last updated on {$issue['updates']}</p>
                         </div>
                         <div class='sidebar'>
@@ -42,7 +42,7 @@ class Issue{
                                 <label>Priority:</label>
                                 <p>{$issue['priority']}</p>
                                 <label>Status:</label>
-                                <p>{$issue['status']}</p>
+                                <p id='status'>{$issue['status']}</p>
                             </div>
                             <button class='mark-close-btn'>Mark as Closed</button>
                             <button class='mark-progress-btn'>Mark in Progress</button>
@@ -54,6 +54,13 @@ class Issue{
     public function createIssue($title, $description, $type, $priority, $assigned_to, $created_by){
         //1. sanitize data
 
+        $title = htmlspecialchars($title);
+        $description = htmlspecialchars($description);
+        $type = htmlspecialchars($type);
+        $priority = htmlspecialchars($priority);
+        $assigned_to = htmlspecialchars($assigned_to);
+        $created_by = htmlspecialchars($created_by);
+
         //2. insert into db
         $this->db_conn->insertIssue($title, $description, $type, $priority, $assigned_to, $created_by);
 
@@ -61,28 +68,48 @@ class Issue{
     }
 
     private function constructTable($issues){
-        echo '<table>';
-            echo '<thead>';
-            echo '<tr>';
-                echo "<th>Title</th>";
-                echo "<th>Type</th>";
-                echo "<th>Status</th>";
-                echo "<th>Assigned To</th>";
-                echo "<th>Created</th>";
-            echo '</tr>';
-            echo '</thead>';
-            echo '<tbody>';
-            foreach($issues as $row){
-            echo "<tr id='".$row['id']."'>";
-                echo "<td>#".$row['id']." ".$row['title']."</td>";
-                echo "<td>".$row['type']."</td>";
-                echo "<td>".$row['status']."</td>";
-                echo "<td>".$row['firstname']." ".$row['lastname']."</td>";
-                echo "<td>".$row['created']."</td>";
-            echo "</tr>";
-            }
-            echo '</tbody>';
-        echo '</table>';
+        if (count($issues)>0){
+            echo '<table>';
+                echo '<thead>';
+                echo '<tr>';
+                    echo "<th>Title</th>";
+                    echo "<th>Type</th>";
+                    echo "<th>Status</th>";
+                    echo "<th>Assigned To</th>";
+                    echo "<th>Created</th>";
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
+                foreach($issues as $row){
+                echo "<tr id='".$row['id']."'>";
+                    echo "<td><span>#".$row['id']."</span> <span>".$row['title']."</span></td>";
+                    echo "<td>".$row['type']."</td>";
+                    echo "<td>".$row['status']."</td>";
+                    echo "<td>".$row['firstname']." ".$row['lastname']."</td>";
+                    echo "<td>".$row['created']."</td>";
+                echo "</tr>";
+                }
+                echo '</tbody>';
+            echo '</table>';
+        }
+        else{
+            echo "<div> No Issues </div>";
+        }
+    }
+    
+    public function closeIssue($id){
+        $this->db_conn->closeIssue($id);
+        return $this->getIssue($id);
     }
 
+    public function progressIssue($id){
+        $this->db_conn->progressIssue($id);
+        return $this->getIssue($id);
+    }
+
+    public function getNameOfUser($id){
+        $name = $this->db_conn->getNameOfUser($id);
+        $name = $name['firstname']." ".$name['lastname'];
+        return $name;
+    }
 }

@@ -46,15 +46,31 @@ table{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+
+thead tr th{
+    text-align: left;
+    background-color: rgb(202, 202, 202);
+    border: none;
+}
+
 th, td{
-    border: 1px solid black;
     padding: 5px;
     min-width: 200px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-tr > th, tbody tr:nth-child(even){
-    background-color: white;
+tbody tr td{
+    border-bottom: 1px solid lightgray;
+    padding: 8px 0px;
+}
+
+
+tr td span:nth-child(1){
+    font-weight: bold;
+}
+
+tr td span:nth-child(2){
+    color: rgb(115, 115, 248);
 }
 
 tbody tr:hover{
@@ -63,4 +79,11 @@ tbody tr:hover{
     cursor: pointer;
 }
 
+tbody tr:hover span:nth-child(1){
+    color: black;
+}
+
+tbody tr:hover span:nth-child(2){
+    color: cyan;
+}
 

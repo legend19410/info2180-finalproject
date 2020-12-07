@@ -22,6 +22,10 @@
     background-color: blue;
 }
 
+#submit-new-user-btn:hover{
+    cursor: pointer;
+}
+
 #add_user input{
     padding: 10px;
     border-radius: 5px;
@@ -32,4 +36,17 @@
 
 #add_user label{
     margin-bottom: 15px;
+}
+
+#response{
+    padding: 16px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.error{
+    padding: 8px 0px;
+    width: 500px;
+    color: red;
+    font-weight: bold;
 }

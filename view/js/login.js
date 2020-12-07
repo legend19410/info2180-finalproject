@@ -1,4 +1,5 @@
 import {loadTableWithAllIssues} from './home.js';
+import {addEventListenersToTableFilters} from './home.js';
 
 export default function login(element){
 
@@ -8,13 +9,12 @@ export default function login(element){
         const password = document.querySelector("#password").value;
         const request = new XMLHttpRequest();
         let key = "email="+email+"&password="+password;
-        console.log(key); 
         sendRequest(request, key);
 
     });
 }
 
-function sendRequest(requestObj, key){
+export function sendRequest(requestObj, key=""){
         
     requestObj.onreadystatechange = () => {
     
@@ -27,6 +27,7 @@ function sendRequest(requestObj, key){
                 if(respObj["loggedIn"]){
                     const main = document.querySelector("main");
                     main.innerHTML = respObj['message'];
+                    addEventListenersToTableFilters();
                     loadTableWithAllIssues('all-btn');
                 }
                 else{
