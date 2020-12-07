@@ -41,7 +41,8 @@
 #response{
     padding: 16px;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 24px;
+    color: green;
 }
 
 .error{
