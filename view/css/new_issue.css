@@ -41,3 +41,16 @@
 #submit-issue-btn:hover{
     cursor: pointer;
 }
+
+.error{
+    padding: 8px 0px;
+    width: 500px;
+    color: red;
+    font-weight: bold;
+}
+
+.msg{
+    padding: 16px;
+    font-weight: bold;
+    font-size: 24px;
+}

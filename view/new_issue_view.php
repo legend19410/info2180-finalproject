@@ -1,9 +1,12 @@
 
 <section id="new_issue">
     <h1>Create Issue</h1>
+
+    <p class="error" id="title-error"></p>
     <label for="title">Title</label>
     <input type="text" id="title" name="title">
 
+    <p class="error" id="description-error"></p>
     <label for="description">Description</label>
     <textarea name="description" id="description" cols="30" rows="10"></textarea>
     
