@@ -18,6 +18,11 @@ export default function addIssue(element){
                         loadUsersInForm(respObj['users']);
                         onSubmitNewIssue();
                     }
+                    else{
+                        main.innerHTML = respObj['message'];
+                        const loginButton = document.querySelector("#login_button");
+                        login(loginButton);
+                    }
                 }
                 if(request.status === 404){
                     msgArea.innerHTML = "404 ERROR PAGE COULD NOT BE FOUND"; 
