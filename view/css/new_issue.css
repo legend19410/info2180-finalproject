@@ -37,3 +37,7 @@
     color: white;
     background-color: blue;
 }
+
+#submit-issue-btn:hover{
+    cursor: pointer;
+}

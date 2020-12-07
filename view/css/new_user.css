@@ -22,6 +22,10 @@
     background-color: blue;
 }
 
+#submit-new-user-btn:hover{
+    cursor: pointer;
+}
+
 #add_user input{
     padding: 10px;
     border-radius: 5px;

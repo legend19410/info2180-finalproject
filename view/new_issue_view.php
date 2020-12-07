@@ -13,16 +13,16 @@
 
     <label for="type">Type</label>
     <select id="type" name="type">
-        <option value="bug">Bug</option>
-        <option value="proposal">Proposal</option>
-        <option value="task">Task</option>
+        <option value="Bug">Bug</option>
+        <option value="Proposal">Proposal</option>
+        <option value="Task">Task</option>
     </select>
     
     <label for="priority">Priority</label>
     <select id="priority" name="priority">
-        <option value="minor">Minor</option>
-        <option value="major">Major</option>
-        <option value="critical">Critical</option>
+        <option value="Minor">Minor</option>
+        <option value="Major">Major</option>
+        <option value="Critical">Critical</option>
     </select>
 
     <button id="submit-issue-btn">Submit</button>

@@ -82,7 +82,7 @@ class Issue{
                 echo '<tbody>';
                 foreach($issues as $row){
                 echo "<tr id='".$row['id']."'>";
-                    echo "<td>#".$row['id']." ".$row['title']."</td>";
+                    echo "<td><span>#".$row['id']."</span> <span>".$row['title']."</span></td>";
                     echo "<td>".$row['type']."</td>";
                     echo "<td>".$row['status']."</td>";
                     echo "<td>".$row['firstname']." ".$row['lastname']."</td>";
