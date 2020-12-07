@@ -8,9 +8,7 @@ export default function login(element){
         const email = document.querySelector("#email").value;
         const password = document.querySelector("#password").value;
         const request = new XMLHttpRequest();
-        let key = "email="+email+"&password="+password+"&name=Javier";
-        console.log(key); 
-        console.log('under key');
+        let key = "email="+email+"&password="+password;
         sendRequest(request, key);
 
     });

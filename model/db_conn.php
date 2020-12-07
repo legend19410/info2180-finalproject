@@ -18,7 +18,7 @@ class DatabaseConnection{
     //returns an assoc arr of a valid user or  if given user not valid false 
     public function login($email, $password){
         $hash = substr(md5($password), 0, 20);
-        $query = $this->handler->query("SELECT * FROM users where email='$email' and password='$password'");
+        $query = $this->handler->query("SELECT * FROM users WHERE email='$email' and password='$hash'");
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if($result){
             return $result;
@@ -28,8 +28,37 @@ class DatabaseConnection{
         }
     }
     // insert a new user into the database
-    public function insertUser($first_name, $last_name, $password, $email){
+    public function insertUser($first_name, $last_name, $email, $password){
+        $hash = substr(md5($password), 0, 20);
 
+        $first_name = htmlspecialchars($first_name);
+        $email = htmlspecialchars($email);
+        $last_name = htmlspecialchars($last_name);
+
+        $stm = "INSERT 
+            INTO users 
+                    (
+                        firstname, 
+                        lastname,
+                        email,
+                        password,
+                        date_joined
+                    )
+            VALUES (
+                    :fname, 
+                    :lname,   
+                    :email, 
+                    :password,
+                    NOW()
+                    )";
+            $query = $this->handler->prepare($stm);
+            $query->bindParam(':fname', $first_name );
+            $query->bindParam(':lname', $last_name);
+            $query->bindParam(':email', $email);
+            $query->bindParam(':password', $hash);
+            $msg = $query->execute();
+
+            return $msg;
     }
 
     public function insertIssue($title, $description, $type, $priority, $assigned_to, $created_by){
@@ -75,7 +104,7 @@ class DatabaseConnection{
             return $result;
         }
         else{
-            return false;
+            return array();
         }
     }
 
@@ -88,7 +117,7 @@ class DatabaseConnection{
             return $result;
         }
         else{
-            return false;
+            return array();
         }
     }
 
@@ -101,7 +130,7 @@ class DatabaseConnection{
             return $result;
         }
         else{
-            return false;
+            return array();
         }
     }
 
@@ -115,7 +144,7 @@ class DatabaseConnection{
             return $result;
         }
         else{
-            return false;
+            return array();            ;
         }
     }
 
@@ -127,12 +156,12 @@ class DatabaseConnection{
             return $result;
         }
         else{
-            return false;
+            return array();
         }
     }
 
     public function closeIssue($id){
-        $query = $this->handler->query("UPDATE issues SET status = 'CLOSED' WHERE id=$id");
+        $query = $this->handler->query("UPDATE issues SET status = 'CLOSED', updates = NOW() WHERE id=$id");
         if($query->rowCount()==1){
             return true;
         }
@@ -140,11 +169,22 @@ class DatabaseConnection{
     }
 
     public function progressIssue($id){
-        $query = $this->handler->query("UPDATE issues SET status = 'IN PROGRESS' WHERE id=$id");
+        $query = $this->handler->query("UPDATE issues SET status = 'IN PROGRESS', updates = NOW() WHERE id=$id");
         if($query->rowCount()==1){
             return true;
         }
         return false;
+    }
+
+    public function getNameOfUser($id){
+        $query = $this->handler->query("SELECT firstname, lastname FROM users WHERE id = $id");
+        $name = $query->fetch(PDO::FETCH_ASSOC);
+        if($name){
+            return $name;
+        }
+        else{
+            return array();
+        }
     }
 }
 

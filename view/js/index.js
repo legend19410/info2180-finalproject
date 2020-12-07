@@ -6,7 +6,6 @@ import logout from './logout.js';
 
 document.addEventListener("DOMContentLoaded", function(){
     const loginButton = document.querySelector("#login_button");
-
     const addNewIssue = document.getElementById('new-issue-link');
     const homeLink = document.getElementById('home-link');
     const addUserLink = document.getElementById('add-user-link');

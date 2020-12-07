@@ -33,3 +33,16 @@
 #add_user label{
     margin-bottom: 15px;
 }
+
+#response{
+    padding: 16px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.error{
+    padding: 8px 0px;
+    width: 500px;
+    color: red;
+    font-weight: bold;
+}

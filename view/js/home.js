@@ -42,7 +42,6 @@ export function loadTableWithAllIssues(value){
     let key = "issues="+value;
     request.onreadystatechange = function(){
 
-        console.log(request.responseText)
         if(request.readyState === 4){
             if(request.status === 200){
                 
@@ -111,13 +110,14 @@ function addEventListenersToMarkButtons(id){
     closedBtn.addEventListener('click', function(event){
         event.stopPropagation();
         const request = new XMLHttpRequest();
-        let p = document.getElementById('status');
+        const main = document.querySelector("main");
         let key = "close-issue="+id;
         request.onreadystatechange = function(){
 
             if(request.readyState === 4){
                 if(request.status === 200){
-                    p.innerText = 'CLOSED';      
+                    main.innerHTML = request.responseText;  
+                    addEventListenersToMarkButtons(id);    
                 }
                 if(request.status === 404){
                     // msgArea.innerHTML = "404 ERROR PAGE COULD NOT BE FOUND"; 
@@ -131,13 +131,14 @@ function addEventListenersToMarkButtons(id){
     progressBtn.addEventListener('click', function(event){
         event.stopPropagation();
         const request = new XMLHttpRequest();
-        let p = document.getElementById('status');
+        const main = document.querySelector("main");
         let key = "progress-issue="+id;
         request.onreadystatechange = function(){
 
             if(request.readyState === 4){
                 if(request.status === 200){
-                    p.innerText = 'IN PROGRESS';      
+                    main.innerHTML = request.responseText; 
+                    addEventListenersToMarkButtons(id);     
                 }
                 if(request.status === 404){
                     // msgArea.innerHTML = "404 ERROR PAGE COULD NOT BE FOUND"; 
