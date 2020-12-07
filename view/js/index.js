@@ -37,7 +37,7 @@ function loadPage(request, key, views){
             let respObj = JSON.parse(request.responseText);
             if(request.status === 200){
                 if (respObj['loggedIn']){
-                    console.log(views[respObj["view"]]);
+                    // console.log(views[respObj["view"]]);
                     views[respObj["view"]].click();
                 }
                 else{
