@@ -39,8 +39,9 @@ function onSubmitNewIssue(){
         let assignedTo = document.getElementById('assigned_to').value;
         let type = document.getElementById('type').value;
         let priority = document.getElementById('priority').value;
+        let titleError = document.getElementById('title-error');
+        let descriptionError = document.getElementById('description-error');
         const request = new XMLHttpRequest();
-        let key = "title="+title+"&description="+description+"&assigned_to="+assignedTo+"&type="+type+"&priority="+priority;
 
         request.onreadystatechange = function(){
             if(request.readyState === 4){
@@ -60,10 +61,32 @@ function onSubmitNewIssue(){
                 }
             }
         };
-        request.open('POST', 'controller/controller.php', true);
-        request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        request.setRequestHeader('Accept', 'application/json');
-        request.send(key);
+
+        let isValid = true;
+
+        if (title === "" || title === null){
+            isValid = false;
+            titleError.innerText = "Enter the issue title";
+        }
+        else{
+            titleError.innerText = "";
+        }
+
+        if (description === "" || description === null){
+            isValid = false;
+            descriptionError.innerText = "Enter the issue description";
+        }
+        else{
+            descriptionError.innerText = "";
+        }
+
+        if(isValid){
+            let key = "title="+title+"&description="+description+"&assigned_to="+assignedTo+"&type="+type+"&priority="+priority;
+            request.open('POST', 'controller/controller.php', true);
+            request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            request.setRequestHeader('Accept', 'application/json');
+            request.send(key);
+        }
     });
 }
 

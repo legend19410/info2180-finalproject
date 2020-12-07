@@ -49,7 +49,7 @@ function onSubmitNewUser(){
                 if(request.readyState === 4){
                     let respObj = JSON.parse(this.responseText);
                     if(request.status === 200){
-                    response.innerText = respObj['message'];
+                        response.innerText = respObj['message'];
                     }
                 }
             };
