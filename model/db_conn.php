@@ -17,6 +17,7 @@ class DatabaseConnection{
 
     //returns an assoc arr of a valid user or  if given user not valid false 
     public function login($email, $password){
+        $hash = substr(md5($password), 0, 20);
         $query = $this->handler->query("SELECT * FROM users where email='$email' and password='$password'");
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if($result){

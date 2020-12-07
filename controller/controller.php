@@ -125,6 +125,7 @@ if(isset($_GET['add_issue'])){
         $_SESSION["current_view"] = "../view/new_issue_view.php";
         echo json_encode(
             array(
+                'loggedIn'=> true,
                 'view'=> $_SESSION["view"],
                 'users' => json_encode($userList),
                 'message' => file_get_contents($_SESSION["current_view"])

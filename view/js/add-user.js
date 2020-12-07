@@ -21,11 +21,6 @@ export default function addUser(element){
                         main.innerHTML = respObj['message'];
                         onSubmitNewUser();
                     }
-                    else{
-                        main.innerHTML = respObj['message'];
-                        let loginButto = document.querySelector("#login_button");
-                        login(loginButto);
-                    }
                 }
                 if(request.status === 404){
                     //msgArea.innerHTML = "404 ERROR PAGE COULD NOT BE FOUND"; 
