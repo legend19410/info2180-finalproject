@@ -21,6 +21,10 @@
     
 }
 
+#login_button:hover{
+    cursor: pointer;
+}
+
 #login input{
     padding: 10px;
     border-radius: 5px;
